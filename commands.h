@@ -7,17 +7,11 @@ void process_command() {
       if (command == "POWER"){
         on_off_switch(); 
       }
-      else if (command == "FORWARD") {
-        direction_front(); 
-      }
-      else if (command == "REVERSE") {
-        direction_back(); 
-      }
       else {
         Serial.println("Car is off, turn it on to pass this command");
         //ADD BLINKING LED OR SOMETIHNG
       }
-      break;
+      break;                    // If the car is off, only command that will be accepted is POWER 
     case 1:
       if (command == "REPEAT") {
         // do nothing because theres no use to the repeat function in this car project
