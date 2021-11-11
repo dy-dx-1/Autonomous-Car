@@ -1,5 +1,5 @@
-void front_def() {
-  digitalWrite(m1dir1, HIGH);
+void front_def() {                           // defining the configs for front and reverse movement, these will be run inside of the actual front and reverse fonctions 
+  digitalWrite(m1dir1, HIGH);                // only there to lighten the code when running the other functions 
   digitalWrite(m1dir2, LOW);
   digitalWrite(m2dir1, HIGH);
   digitalWrite(m2dir2, LOW);
