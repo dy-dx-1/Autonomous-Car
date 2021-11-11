@@ -44,6 +44,8 @@ String command;                                   // Variable holding the comman
 int cspeed = 0;  
 int Is_On = 0; // Car is off at the start of code so speed is 0. Is_On is false at the start since we have to press the button on the controller to turn it on || 0 represents false and 1 true (using ints cause switch case doesn't allow bools) 
 int moving_front = 1;       // Car starts in forward mode, when this is 0 then we are in reverse 
+int paused = 0;               // This variable turns to 1 when the car is turned on but idle 
+
 /////////////////////////////////////////////////////////////////////// void setup 
 void setup() {
   Serial.begin(9600);
