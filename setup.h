@@ -18,8 +18,10 @@ int m2dir2 = 8; // Digital inputs for direction
 int recvPin = 9;                                      // IR receiver pin (not Vcc or Gnd ofc) 
 int echoPin = 11;                                     // Trigger and Echo pin for sensor  
 int trigPin = 12;     
-int redPin = 13;                                         // LED that flashes when the IR command is not recognized                                 
-
+int warning_led = 13;                                         // LED that flashes when the IR command is not recognized    
+int on_led = 17;                                        // LED that flashed when car on                              
+int info_led = 19;                                        // 19 corresponds to the A5 pin (analog pins A0 to A5 can be used as digital pins on the nano according to google!) (A6 and A7 can't though) [A0 -> pin14 ; A5->pin19]
+// LED that flashes to transmit info when moving (changing direction, advancing, turning) 
 //////////////////////////// Creating library objects 
 Servo servo;
 IRrecv remote(recvPin);
@@ -44,8 +46,10 @@ String command;                                   // Variable holding the comman
 int cspeed = 0;  
 int Is_On = 0; // Car is off at the start of code so speed is 0. Is_On is false at the start since we have to press the button on the controller to turn it on || 0 represents false and 1 true (using ints cause switch case doesn't allow bools) 
 int moving_front = 1;       // Car starts in forward mode, when this is 0 then we are in reverse 
-int paused = 0;               // This variable turns to 1 when the car is turned on but idle 
+int moving = 0;                 // 1 when in movement, 0 when idle 
 
+int mtime; // Will hold the int version of command (used in moving_orders.h) 
+unsigned long tstart; // Will hold the first boundary of our time count 
 /////////////////////////////////////////////////////////////////////// void setup 
 void setup() {
   Serial.begin(9600);
@@ -57,7 +61,9 @@ void setup() {
 
   //FOR IR REMOTE  
   pinMode(recvPin, INPUT);
-  pinMode(redPin, OUTPUT); 
+  pinMode(warning_led, OUTPUT); 
+  pinMode(on_led, OUTPUT); 
+  pinMode(info_led, OUTPUT); 
   remote.enableIRIn();
 
   pinMode(speed1, OUTPUT); 
