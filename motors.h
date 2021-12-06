@@ -1,3 +1,5 @@
+// all general car commands, excluding moving commands // 
+
 void info_blink() {
   digitalWrite(info_led, HIGH); 
   delay(300); 
@@ -8,14 +10,18 @@ void info_blink() {
   digitalWrite(info_led, LOW);      // Blinking the led 
 }
 
-void warning_blink() {                      //DIFFERNT FROM BAD IR READING BECAUSE DOUBLE BLINK INSTEAD OF ONE 
+void warning_blink() {                 // Differentl from bad IR reading because this one blinks 3 times isntead of 1 
   digitalWrite(warning_led, HIGH); 
-  delay(300); 
+  delay(200); 
   digitalWrite(warning_led, LOW); 
-  delay(300); 
+  delay(200); 
   digitalWrite(warning_led, HIGH); 
-  delay(300); 
-  digitalWrite(warning_led, LOW);      // Blinking the led 
+  delay(200); 
+  digitalWrite(warning_led, LOW);     
+  delay(200); 
+  digitalWrite(warning_led, HIGH); 
+  delay(200); 
+  digitalWrite(warning_led, LOW);     
 }
 
 void go_forward() {
@@ -68,18 +74,19 @@ void on_off_switch() {
       digitalWrite(on_led, LOW);                    // Turning off the ON status led 
       break;
     case 0:         // If it's off, we wanted to turn it on :
-      cspeed = 210;         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Our turning on speed is 210 so that it starts moving slowly (MIN STAR5T SPEED)
+      cspeed = 215;         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Our turning on speed is 215 so that it starts moving slowly (MIN STAR5T SPEED)
       Is_On = 1;
-      moving = 1;
       go_forward();       
       digitalWrite(on_led, HIGH);                               //Turnign on the ON status led 
       break;
   }
 }
 
-void augment_speed() {  // Exceptionally for thse functions, we have a check for moving here and not in the switch in 'commands.h' because these are used in both cases for moving 1 and 0 so we have to distinguish here 
+void augment_speed() {  // Exceptionally for thse functions, we have a check for moving here and not in the switch in main because these are used in both cases for moving 1 and 0 so we have to distinguish here 
+  if (cspeed == 0 && Is_On == 1) {  // if we are paused (speed 0 but on) 
+    cspeed = 195;                            // So that the following 'else' turns cspeed into 215, the starting speed. We do this because without it, when we are paused augment speed would allow you to have cspeeds that are 1) not multiples of 5 (so our 255 check wouldnt work) and 2) too low (<95) 
+  }
   if (cspeed == 255) {
-    //TODO: add flashing light or something to indicate max speed
     Serial.println("Max speed atteinte");
     warning_blink();    
   }
@@ -94,7 +101,7 @@ void augment_speed() {  // Exceptionally for thse functions, we have a check for
 }
 
 void lower_speed() {    
-  if (cspeed == 95) {
+  if (cspeed <= 95) {                         // Ici on utilise <= au cas où on est en pause (cspeed de 0) et on essaye de diminuer encore plus la vitesse, on pourra pas diminuer plus donc on est obligés de call augment_speed() 
     //TODO: add flashing light or something to indicate min speed
     Serial.println("Min speed atteinte");
     warning_blink(); 

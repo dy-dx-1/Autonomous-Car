@@ -1,6 +1,4 @@
-//#ifndef __included_setup_h
-//#define __included_setup_h
-//#include "Arduino.h"
+// getting commands from the IR remote // 
 
 void get_command() {
   while (remote.decode(&cmd) == 0) {
@@ -28,17 +26,20 @@ void get_command() {
   else if (cmd.value == 0xA3C8EDDB || cmd.value == 0xFFA857) {
     command = "SPEED-";     // Volume - button
   }
-  else if (cmd.value == 0xE5CFBD7F || cmd.value == 0xFF906F) {
+  else if (cmd.value == 0xE5CFBD7F || cmd.value == 0xFF906F) {      
     command = "FORWARD";     // Arrow pointing up button
   }
-  else if (cmd.value == 0xFFE21D || cmd.value == 0xEE886D7F || cmd.value == 0x754D75F6 || cmd.value == 0x8BBB7589) {
-    command = "PAUSE"; 
+  else if (cmd.value == 0xFFE21D || cmd.value == 0xEE886D7F || cmd.value == 0x754D75F6 || cmd.value == 0x8BBB7589) {  
+    command = "PAUSE";          // FUNC/STOP  
   }
-  else if (cmd.value == 0xFFE21D || cmd.value == 0xEE886D7F || cmd.value == 0x754D75F6 || cmd.value == 0x8BBB7589) {
-    command = "AUTO"; 
+  else if (cmd.value == 0xFFB04F || cmd.value == 0xF0C41643 || cmd.value == 0xB482A44E) { 
+    command = "AUTO";             //ST/REPT 
   }
-  else if (cmd.value == 0xFF6897 || cmd.value == 0xC101E57B) {
-    command  = "10"; 
+  else if (cmd.value == 0x97483BFB || cmd.value == 0xFF9867) {  
+    command = "11";                 // EQ button  
+  }
+  else if (cmd.value == 0xFF6897 || cmd.value == 0xC101E57B) { 
+    command  = "10";                // 0 button  
   }
   else if (cmd.value == 0xFF30CF) {
     command = "1"; 
@@ -77,4 +78,3 @@ void get_command() {
   }
   remote.resume();
 }
-//#endif
