@@ -1,0 +1,40 @@
+* on off working, 
+* pause seems to be working 
+* repeat specifically somehow makes the motors turn ** This doesn't bypass the off status though 
+* Not moving, turned on, augment and lower speed work BUT the limits are not working (can go in <0 and >255) 
+-----------------------------------------------------------------------------
+* reverse and forward switchs are working - however exact directins (which pins to set high or low) are not defined yet since I cant get it to move 
+* turns right and left not tested yet, seem to be setting their pin currents properly though 
+* changing speed even while not moving cause the jumpstart to occur 
+
+* Timing for set displacements works HOWEVER ONLY ONE WHEEL TURNS 
+* Undefined time displacement works but wiht only one wheel too 
+
+* Changing speed while moving works - haven't tested limits to protect motors but to check
+
+* Everythng seems to be the same when in reverse 
+
+|||||
+modif du 24 nov: changé toius les analogWrite de 'moving_orders.h' pour des digital write 
+ÉTAT COURANT: fonctionne mais la focntion dfe changemetn de vitessene marche aps à cause des restrictions PWM de IR lib 
+quoi faire? 
+option 1) essayer d'optimiser pins encore pour la prochaine fois et trouver un free 
+option 2) Coupler avec un autre arduino qui handle IR lib seulement afin d'avoir les pins free dans le main downside est 2 codes à implementer + difficile pendant que il bouge 
+option 3) abandonner changement de vitesse 
+|||
+
+***Fix the repeat thing its messing up a lot of follow up commands***  
+
+int m1dir1 = 2; 
+int speed1 = 11; 
+int m1dir2 = 4; 
+int speed2 = 5; // PWM inputs for speed of motors 1 and 2 and digital inputs for direction of motor 1 
+int s_Pin = 6;                                          // Servo pin 
+int m2dir1 = 7; 
+int m2dir2 = 8;                 // Digital inputs for direction of motor 2 
+int recvPin = 9;                                      // IR receiver pin (not Vcc or Gnd ofc) 
+int echoPin = 10;                                     // Trigger and Echo pin for sensor  /////////////////////////////////////////////////////////////////was 11 before tests of for1 motor 
+int trigPin = 12;     
+int warning_led = 13;                                         // LED that flashes when the IR command is not recognized    
+int on_led = 17;                                        // LED that flashed when car on                              
+int info_led = 19;       
