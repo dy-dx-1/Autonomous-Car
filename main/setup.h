@@ -5,7 +5,7 @@
 ////////////////////////////// PINS
 
 int m1dir1 = 2;  // m1dir1, m1dir2, m2dir1 and m2dir2 are the pins that set the direction for motors 1 and 2.
-int commpin = 3; // Pin that sends signal to slave arduino to start obstacle detection.
+int commpin = 3; // Pin that sends signal to peripheral arduino to start obstacle detection.
 int m1dir2 = 4;
 int speed1 = 10; // Equivalence to motors IRL on line 2 of "motors.h"
 int speed2 = 5;  // PWM inputs for speed of motors 1 and 2.
@@ -16,7 +16,7 @@ int recvPin = 9; // IR receiver data pin.
 
 int warning_led = 11; // LED that flashes for minor warnings like trying to pass an unavailable command.
 int error_led = 13;   // LED that flashes when an IR command is not recognized.
-int listen_pin = 14;  // Analog pin that will listen to the info transmitted back by slave arduino
+int listen_pin = 14;  // Analog pin that will listen to the info transmitted back by peripheral arduino
 int on_led = 17;      // LED that is on when the car is on.
 int info_led = 19;    // 19 corresponds to the A5 pin (analog pins A0 to A5 can be used as digital pins on the nano) (A6 and A7 can't though) [A0 -> pin14 ; A5->pin19]
                       // info_LED that flashes to transmit different types of information & status's(changing direction, advancing, turning, detecting obstacles, etc).
@@ -28,7 +28,7 @@ String command; // Variable holding the command that the IR receiver got, return
 
 ////////////////////////////// Necessary variables for the autopilot. -- Used in "auto_mode.h".
 int delta;       // Used to calculate the timings of the info sent between the arduinos.
-bool listening;  // Indicates if we are waiting for a response from the slave arduino.
+bool listening;  // Indicates if we are waiting for a response from the peripheral arduino.
 int chosen_path; // Variable holding the path to follow after running the obstacle detection.
 
 ////////////////////////////// Necessary variables for notor operation. Used in "motors.h" and "moving_orders.h"
@@ -63,7 +63,7 @@ void setup()
   pinMode(m2dir1, OUTPUT);
   pinMode(m2dir2, OUTPUT);
 
-  // COMMUNICATION WITH SLAVE ARDUINO
+  // COMMUNICATION WITH PERIPHERAL ARDUINO
   pinMode(listen_pin, INPUT);
   pinMode(commpin, OUTPUT);
 }
