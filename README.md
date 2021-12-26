@@ -2,7 +2,9 @@
 
 ## French/Français
 
-Voiture autonome contrôlée à l'aide de deux Arduinos Nanos qui recoivent des commandes à l'aide d'une télécommande IR. 
+Voiture autonome contrôlée à l'aide de deux Arduinos Nanos qui recoivent des commandes à l'aide d'une télécommande IR.  
+Écrit sur l'IDE Arduino 1.8.13  
+Libraries utilisées: [IRremote-2.8.0](https://github.com/Arduino-IRremote/Arduino-IRremote) ; [Servo-1.1.7](https://github.com/arduino-libraries/Servo) ; [NewPing-1.9.1](https://bitbucket.org/teckel12/arduino-new-ping/wiki/Home)
 
 La majorité des fonctions de la voiture sont effectuées à travers d'un des Arduinos ('controller'), qui fonctionne avec le code dans 'main' et les headers associés. Le deuxième arduino 'peripheral' sert juste à effectuer la détection d'obstacles en mode autonome lorsque il reçoit un signal de 'controller'. 
 
@@ -29,6 +31,8 @@ Tout le code se retrouve dans le fichier "obstacle_detection.ino" qui sert uniqu
 ## Anglais / English 
 
 Autonomous car controlled by two Arduino Nano's that receive commands from an IR remote.  
+Written on version 1.8.13 of the Arduino IDE  
+Used libraries: [IRremote-2.8.0](https://github.com/Arduino-IRremote/Arduino-IRremote) ; [Servo-1.1.7](https://github.com/arduino-libraries/Servo) ; [NewPing-1.9.1](https://bitbucket.org/teckel12/arduino-new-ping/wiki/Home)
 
 The majority of the car's functions are performed through one of the Arduinos ('controller'), which works with the code in the 'main' directory (.ino file and the supporting headers). The second ('peripheral ') arduino is just used to perform the obstacle detection in autonomous mode when it receives a signal from 'controller'. 
 
