@@ -1,4 +1,4 @@
-/// Obstacle detection, this is ran by the slave arduino when it receives a signal from main arduino. Checks for obstacles and returns a viable path. ///
+/// Obstacle detection, this is ran by the peripheral arduino when it receives a signal from controller arduino. Checks for obstacles and returns a viable path. ///
 #include <NewPing.h>
 #include <Servo.h>
 
@@ -6,7 +6,7 @@
 #define ECHO_PIN 11
 #define MAX_DISTANCE 400 // Setting our max distance to 400cm, when a distance bigger is measured, NewPing returns 0.
 
-int listening_pin = A0; // Pin where we listen to the signal from the main arduino.
+int listening_pin = A0; // Pin where we listen to the signal from the controller arduino.
 int s_Pin = 6;          // Servo control pin.
 int send_pin = 8;       // Pin that will be used to communicate the final path to main arduino¸
 
@@ -25,7 +25,7 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // Creating sonar object.
 void setup()
 {
   Serial.begin(9600);
-  servo.attach(s_Pin); // Attaching servo to pin
+  servo.attach(s_Pin); // Attaching servo to pinl. 
   pinMode(listening_pin, INPUT);
   pinMode(send_pin, OUTPUT);
   pinMode(13, OUTPUT); // Indicates when the obstacle detection is running. There is a white LED hooked up to it (in addition to built in LED).
@@ -69,11 +69,11 @@ In any of those 2 cases, we just continue iterating to check the other positions
 
 void loop()
 {
-  digitalWrite(13, LOW); // Making sure this is turned off when we are still awaiting master signal.
+  digitalWrite(13, LOW); // Making sure this is turned off when we are still awaiting controller signal.
   listen_pin_status = digitalRead(listening_pin);
 
   if (listen_pin_status != LOW)
-  { // If we get a signal from master arduino, detect obstacles and return pos.
+  { // If we get a signal from controller arduino, detect obstacles and return pos.
     Serial.println("Master Arduino sent signal");
     digitalWrite(13, HIGH); // Turning on white LED to indicate that we received a signal.
     Serial.println("Detecting obstacles");
