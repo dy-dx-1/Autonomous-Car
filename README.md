@@ -25,7 +25,7 @@ Le code est executé à partir du fichier 'main.ino', qui se refère à plusieur
 ### Slave Arduino 
 Tout le code se retrouve dans le fichier "slave_code.ino" qui sert uniquement à détecter les obstacles en mode de déplacement autonome et à retourner un chemin à suivre au 'master' Arduino. L'utilisation de la librarie _NewPing_ permet d'augmenter grandement la vitesse du processus. Avant j'utilisais une fonction que j'avais écrite moi-même pour prendre 44 mesures afin de déterminer une distance plus précise, mais la légère augmentation de précision ne valait pas la peine avec le plus long temps d'exécution. 
 
-## En / English 
+## Anglais / English 
 
 Autonomous car controlled by two Arduino Nano's that receive commands from an IR remote.  
 
