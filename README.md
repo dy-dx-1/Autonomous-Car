@@ -36,17 +36,17 @@ Here is a summary of each of the files, more details can be found in the code in
 ### Arduino Master 
 The code is executed from the 'main.ino' file, which refers to several headers, each one being used to operate a specific functionality of the car. Here is a short explanation of the different files. 
 
-*main.ino "*: Controls the general state of the car by processing the commands received by the remote control and by calling the associated functions (with the _process_command()_ function). By using the 'command' variable (which is a string), the flow of the code is easier to understand than if we directly handled the hex codes sent by the remote. The value of the command variable is obtained using the _get_command()_ function, which is defined in "remote.h". 
+*"main.ino"*: Controls the general state of the car by processing the commands received by the remote control and by calling the associated functions (with the _process_command()_ function). By using the 'command' variable (which is a string), the flow of the code is easier to understand than if we directly handled the hex codes sent by the remote. The value of the command variable is obtained using the _get_command()_ function, which is defined in "remote.h". 
 
-*remote.h "*: Defines the _get_command()_ function, which updates the 'command' variable before it is used in "main.ino". This is where we do the raw processing of the hex codes sent by the remote control. 
+*"remote.h "*: Defines the _get_command()_ function, which updates the 'command' variable before it is used in "main.ino". This is where we do the raw processing of the hex codes sent by the remote control. 
 
-*motors.h "*: Defines all the general functions of the car except those used to move. For example, the functions that are used to turn, to change speed and to change direction are defined in this header. 
+*"motors.h"*: Defines all the general functions of the car except those used to move. For example, the functions that are used to turn, to change speed and to change direction are defined in this header. 
 
-*"moving_orders.h "*: Defines the functions needed for the car to move. It is possible to either make the car move for a specific time (ex: 5seconds), or make it move indefinitely until you stop it. 
+*"moving_orders.h"*: Defines the functions needed for the car to move. It is possible to either make the car move for a specific time (ex: 5seconds), or make it move indefinitely until you stop it. 
 
-*auto_mode.h "*: Defines the _detect_obstacles()_ function, which sends a signal to the Arduino 'slave', telling it to analyze the surroundings and find a path without obstacles, wait for its response, and determine which path to follow. 
+*"auto_mode.h"*: Defines the _detect_obstacles()_ function, which sends a signal to the Arduino 'slave', telling it to analyze the surroundings and find a path without obstacles, wait for its response, and determine which path to follow. 
 
-*setup.h "*: Defines the variables needed to run the code and executes _void setup()_. 
+*"setup.h"*: Defines the variables needed to run the code and executes _void setup()_. 
 
 ### Slave Arduino
 All of the code is in the file "slave_code.ino" which is only used to detect obstacles in autonomous mode and return a path to follow to the 'master' Arduino. The use of the _NewPing_ library allows to greatly increase the speed of the process. I used to use a function I wrote myself to take 44 measurements to determine a more accurate distance, but the slight increase in accuracy was not worth it with the longer execution time. 
